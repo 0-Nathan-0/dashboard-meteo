@@ -1,22 +1,29 @@
 import { useState } from "react";
-import SearchResult from "./SearchResult";
 
-export default function SearchBar() {
-  const [search, setSearch] = useState<string>("");
+type Props = {
+  search: string;
+  setSearch: (search: string) => void;
+  onSearchSubmit: (search: string) => void;
+};
 
+export default function SearchBar({
+  onSearchSubmit,
+  search,
+  setSearch,
+}: Props) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      SearchResult;
+      onSearchSubmit(search);
       setSearch("");
     }
   };
 
   const handleClick = () => {
-    SearchResult;
+    onSearchSubmit(search);
     setSearch("");
   };
 

@@ -1,22 +1,13 @@
-import { useState } from "react";
+type Props = {
+  search: string;
+  results: any;
+};
 
-export default async function SearchResult(searched: string) {
-  const [results, setResults] = useState<string[]>([]);
+export default function SearchResult({ search, results }: Props) {
+  if (!search) {
+    return <div>Veuillez entrer une recherche.</div>;
+  }
 
-  const handleSearchSubmit = async (searched: string) => {
-    if (searched) {
-      const APIkey = "82c485cf126bc203fa9237948e6f79a9";
-      const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${searched}&appid=${APIkey}&lang=fr`
-      );
-      const data = await response.json();
-      setResults(data);
-    }
-  };
-
-  const capitalizeFirstLetter = (string: string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  };
   if (
     !results ||
     !results.sys ||
@@ -25,23 +16,16 @@ export default async function SearchResult(searched: string) {
     !results.wind ||
     !results.clouds
   ) {
-    return <div>YAAAAAAAAAA PAAAAAAAAAAAAS</div>;
+    return <div>ça existe pas poto</div>;
   }
 
   return (
     <div>
-      <h2>
-        Météo dans {results.name}, {results.sys.country}
-      </h2>
-      <p>{capitalizeFirstLetter(results.weather[0].description)}</p>
-      <p>Température: {(results.main.temp - 273.15).toFixed(2)} °C</p>
-      <p>Ressentie: {(results.main.feels_like - 273.15).toFixed(2)} °C</p>
-      <p>Vitesse du vent: {results.wind.speed} m/s</p>
-      <p>Humidité: {results.main.humidity}%</p>
-      <p>Pression: {results.main.pressure} hPa</p>
-      <p>Visibilité: {results.visibility} mètres</p>
-      <p>Couverture nuageuse: {results.clouds.all}%</p>
-      {results.rain && <p>Pluie (dernière heure): {results.rain["1h"]} mm</p>}
+      <h2>Résultats de la recherche pour "{search}"</h2>
+      <p>Température: {results.main.temp}°C</p>
+      <p>Météo: {results.weather[0].description}</p>
+      <p>Vent: {results.wind.speed} m/s</p>
+      <p>Nuages: {results.clouds.all}%</p>
     </div>
   );
 }
