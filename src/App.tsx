@@ -1,8 +1,16 @@
-import './App.css';
+import SearchBar from "./components/SearchBar";
+import SearchResult from "./components/SearchResult";
 
 function App() {
   return (
-    <div>Hello World</div>
+    <>
+      <div>
+        <SearchBar />
+      </div>
+      <div>
+        <SearchResult searched={searched} />
+      </div>
+    </>
   );
 }
 
