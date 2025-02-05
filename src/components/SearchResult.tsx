@@ -1,10 +1,11 @@
+
 type Props = {
-  search: string;
   results: any;
 };
 
-export default function SearchResult({ search, results }: Props) {
-  if (!search) {
+export default function SearchResult({results}: Props) {
+
+  if (!results) {
     return <div>Veuillez entrer une recherche.</div>;
   }
 
@@ -21,8 +22,8 @@ export default function SearchResult({ search, results }: Props) {
 
   return (
     <div>
-      <h2>Résultats de la recherche pour "{search}"</h2>
-      <p>Température: {results.main.temp}°C</p>
+      <h2>Résultats de la recherche pour {results.name}</h2>
+      <p>Température: {(results.main.temp - 273.15).toFixed(2)}°C</p>
       <p>Météo: {results.weather[0].description}</p>
       <p>Vent: {results.wind.speed} m/s</p>
       <p>Nuages: {results.clouds.all}%</p>

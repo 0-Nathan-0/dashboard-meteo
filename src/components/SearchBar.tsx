@@ -7,10 +7,10 @@ type Props = {
 };
 
 export default function SearchBar({
-  onSearchSubmit,
-  search,
-  setSearch,
+  onSearchSubmit
 }: Props) {
+  const [search, setSearch] = useState<string>("");
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
   };
