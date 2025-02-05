@@ -3,11 +3,11 @@ import { useState } from "react";
 type Props = {
   search: string;
   setSearch: (search: string) => void;
-  onSearchSubmit: (search: string) => void;
+  handleSearchSubmit: (search: string) => void;
 };
 
 export default function SearchBar({
-  onSearchSubmit
+  handleSearchSubmit
 }: Props) {
   const [search, setSearch] = useState<string>("");
   
@@ -17,13 +17,13 @@ export default function SearchBar({
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      onSearchSubmit(search);
+      handleSearchSubmit(search);
       setSearch("");
     }
   };
 
   const handleClick = () => {
-    onSearchSubmit(search);
+    handleSearchSubmit(search);
     setSearch("");
   };
 

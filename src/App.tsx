@@ -1,29 +1,23 @@
 import { useState} from "react";
 import SearchBar from "./components/SearchBar";
 import SearchResult from "./components/SearchResult";
+import { onSearchSubmit } from "./functions/API";
 
 function App() {
   const [search, setSearch] = useState<string>("");
   const [results, setResults] = useState<any>(null);
 
-  const onSearchSubmit = async (search: string) => {
-    try {
-      const APIkey = "82c485cf126bc203fa9237948e6f79a9";
-      const response = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=${APIkey}&lang=fr`
-      );
-      const data = await response.json();
-      setResults(data);
-    } catch (error) {
-      console.error("Error fetching search results:", error);
-    }
-  };
+  const handleSearchSubmit = async (search: string) =>
+  {
+    const data = await onSearchSubmit(search);
+    setResults(data);
+  }
 
   return (
     <>
       <div>
         <SearchBar
-          onSearchSubmit={onSearchSubmit}
+          handleSearchSubmit={handleSearchSubmit}
           search={search}
           setSearch={setSearch}
         />
